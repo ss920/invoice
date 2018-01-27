@@ -1,42 +1,74 @@
 package com.systena.invoice.validate;
 
+import com.systena.invoice.validate.impl.DataCheckValidImp;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import javax.validation.ReportAsSingleViolation;
 
-import com.systena.invoice.validate.impl.DataCheckValidImp;
-
 /**
- * 日付妥当性チェック<br>
- * 開始日・終了日を受け取り、妥当性をチェックする<br>
- * true: 妥当な日付<br>
- * false: 開始日が終了日より過去である
+ * The Interface DateCheckValid.
  */
 @Documented
-@Constraint(validatedBy={DataCheckValidImp.class})
+@Constraint(validatedBy = {DataCheckValidImp.class})
 @Target({ElementType.TYPE,ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @ReportAsSingleViolation
 public @interface DateCheckValid {
 
-	String message() default "終了日は開始日より過去にはできません。";
-	Class<?>[] groups() default {};
-	Class<? extends Payload>[] payload() default {};
+  /**
+   * Message.
+   *
+   * @return the string
+   */
+  String message() default "終了日は開始日より過去にはできません。";
 
-	String startDateProperty();
-	String endDateProperty();
+  /**
+   * Groups.
+   *
+   * @return the class[]
+   */
+  Class<?>[] groups() default {};
 
-	@Target({ElementType.TYPE,ElementType.ANNOTATION_TYPE})
-	@Retention(RetentionPolicy.RUNTIME)
-	@Documented
-	public @interface List {
-		DateCheckValid[] value();
-	}
+  /**
+   * Payload.
+   *
+   * @return the class<? extends payload>[]
+   */
+  Class<? extends Payload>[] payload() default {};
+
+  /**
+   * Start date property.
+   *
+   * @return the string
+   */
+  String startDateProperty();
+
+  /**
+   * End date property.
+   *
+   * @return the string
+   */
+  String endDateProperty();
+
+  /**
+   * The Interface List.
+   */
+  @Target({ElementType.TYPE,ElementType.ANNOTATION_TYPE})
+  @Retention(RetentionPolicy.RUNTIME)
+  @Documented
+  public @interface List {
+
+    /**
+     * Value.
+     *
+     * @return the date check valid[]
+     */
+    DateCheckValid[] value();
+  }
 
 }

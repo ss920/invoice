@@ -1,9 +1,7 @@
 package com.systena.invoice.dto.detail;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,15 +14,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MessageDto implements Serializable {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+  /** The Constant serialVersionUID. */
+  private static final long serialVersionUID = 1L;
 
-	/** The message id. */
-	@JsonProperty("message_id")
-	private String messageId;
+  /** The message id. */
+  @JsonProperty("message_id")
+  private String messageId;
 
-	/** The message content. */
-	@JsonProperty("message_content")
-	private String messageContent;
+  /** The message content. */
+  @JsonProperty("message_content")
+  private String messageContent;
 
 }

@@ -1,20 +1,24 @@
 package com.systena.invoice.constant;
 
 /**
- * URL系定数クラス
+ * The Class AccessConstant.
  */
 public class AccessConstant {
 
-	/** URL：アプリのルート */
-	public static final String URL_ROOT = "/invoice";
-	/** URL：アプリのバージョン */
-	public static final String URL_VERSION = "/v1";
-	/** URL：請求書 */
-	public static final String URL_INVOICE = "/invoice";
-	/** 請求書管理番号 */
-	public static final String PARAM_INVOICE_NO = "invoiceNo";
-	/** URL：請求書管理番号 */
-	public static final String URL_INVOICE_NO = "/{" + PARAM_INVOICE_NO +"}";
+  /** The Constant URL_ROOT. */
+  public static final String URL_ROOT = "/invoice";
+
+  /** The Constant URL_VERSION. */
+  public static final String URL_VERSION = "/v1";
+
+  /** The Constant URL_INVOICE. */
+  public static final String URL_INVOICE = "/invoice";
+
+  /** The Constant PARAM_INVOICE_NO. */
+  public static final String PARAM_INVOICE_NO = "invoiceNo";
+
+  /** The Constant URL_INVOICE_NO. */
+  public static final String URL_INVOICE_NO = "/{" + PARAM_INVOICE_NO + "}";
 
 
 }
