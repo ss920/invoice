@@ -17,8 +17,10 @@ import com.systena.invoice.repository.OrderRepository;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,140 +33,140 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class InvoiceCreateService {
 
-  /** The order repository. */
-  @Resource
-  OrderRepository orderRepository;
+    /** The order repository. */
+    @Resource
+    OrderRepository orderRepository;
 
-  /** The invoice create repository. */
-  @Resource
-  InvoiceCreateRepository invoiceCreateRepository;
+    /** The invoice create repository. */
+    @Resource
+    InvoiceCreateRepository invoiceCreateRepository;
 
-  /** The invoice message. */
-  @Autowired
-  InvoiceMessage invoiceMessage;
+    /** The invoice message. */
+    @Autowired
+    InvoiceMessage invoiceMessage;
 
-  /** The invoice properties. */
-  @Autowired
-  InvoiceProperties invoiceProperties;
+    /** The invoice properties. */
+    @Autowired
+    InvoiceProperties invoiceProperties;
 
-  /**
-   * Invoice create execute.
-   *
-   * @param invoiceCreateForm the invoice create form
-   * @return the invoice create dto
-   * @throws InvoiceException the invoice exception
-   */
-  @Transactional(rollbackFor = Exception.class)
-  public InvoiceCreateDto invoiceCreateExecute(
-      InvoiceCreateForm invoiceCreateForm) throws InvoiceException {
+    /**
+     * Invoice create execute.
+     *
+     * @param invoiceCreateForm the invoice create form
+     * @return the invoice create dto
+     * @throws InvoiceException the invoice exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public InvoiceCreateDto invoiceCreateExecute(
+            final InvoiceCreateForm invoiceCreateForm) throws InvoiceException {
 
-    // リクエストで設定されている検索日時をもとに、注文履歴を取得
-    List<OrderEntity> orderList = selectOrderAll(
-        Integer.valueOf(invoiceCreateForm.getClientNo()),
-        InvoiceStringUtils.stringToTimestamp(
-            invoiceCreateForm.getInvoiceStartDate(), Constant.FORMAT_DATE_SLASH),
-        InvoiceStringUtils.stringToTimestamp(
-            invoiceCreateForm.getInvoiceEndDate(), Constant.FORMAT_DATE_SLASH));
+        // リクエストで設定されている検索日時をもとに、注文履歴を取得
+        List<OrderEntity> orderList = selectOrderAll(
+                Integer.valueOf(invoiceCreateForm.getClientNo()),
+                InvoiceStringUtils.stringToTimestamp(
+                        invoiceCreateForm.getInvoiceStartDate(), Constant.FORMAT_DATE_SLASH),
+                InvoiceStringUtils.stringToTimestamp(
+                        invoiceCreateForm.getInvoiceEndDate(), Constant.FORMAT_DATE_SLASH));
 
-    if (orderList == null || orderList.size() == 0) {
-      throw new InvoiceException(
-          MessageConstant.MSGID_INVOICE_NOT_FOUNT,
-          null,
-          HttpStatus.NOT_FOUND);
+        if (CollectionUtils.isEmpty(orderList)) {
+            throw new InvoiceException(
+                    MessageConstant.MSGID_INVOICE_NOT_FOUNT,
+                    null,
+                    HttpStatus.NOT_FOUND);
+        }
+        log.info("selectOrderAll : " + orderList.toString());
+        // 新規登録する請求書情報を作成
+        InvoiceEntity invoiceEntity = createInvoiceInfo(orderList, invoiceCreateForm);
+        // 請求書を新規登録
+        InvoiceEntity newInvoiceEntity = createInvoice(invoiceEntity);
+
+        if (Objects.isNull(newInvoiceEntity)) {
+            throw new InvoiceException(
+                    MessageConstant.MSGID_INVOICE_CREATE_FAILURE,
+                    null,
+                    HttpStatus.SERVICE_UNAVAILABLE);
+        }
+        log.info("new invoiceInfo : " + newInvoiceEntity.toString());
+        // 作成した請求書番号を設定
+        InvoiceCreateInfoDto createInfoDto = new InvoiceCreateInfoDto(
+                String.valueOf(newInvoiceEntity.getInvoiceNo()));
+
+        // 請求書作成成功のメッセージを設定
+        List<MessageDto> messageList = new ArrayList<MessageDto>();
+        MessageDto messageDto = new MessageDto();
+        invoiceMessage.setMessage(messageDto, MessageConstant.MSGID_INVOICE_CREATE_SUCCESS, null);
+        messageList.add(messageDto);
+
+        return new InvoiceCreateDto(messageList, createInfoDto);
     }
-    log.info("selectOrderAll : " + orderList.toString());
-    // 新規登録する請求書情報を作成
-    InvoiceEntity invoiceEntity = createInvoiceInfo(orderList, invoiceCreateForm);
-    // 請求書を新規登録
-    InvoiceEntity newInvoiceEntity = createInvoice(invoiceEntity);
 
-    if (newInvoiceEntity == null) {
-      throw new InvoiceException(
-          MessageConstant.MSGID_INVOICE_CREATE_FAILURE,
-          null,
-          HttpStatus.SERVICE_UNAVAILABLE);
+    /**
+     * Creates the invoice info.
+     *
+     * @param orderList the order list
+     * @param invoiceCreateForm the invoice create form
+     * @return the invoice entity
+     */
+    public InvoiceEntity createInvoiceInfo(
+            final List<OrderEntity> orderList, final InvoiceCreateForm invoiceCreateForm) {
+
+        // 請求金額を作成
+        int invoiceAmt = 0;
+        for (OrderEntity orderEntity : orderList) {
+            invoiceAmt += orderEntity.getItemPrice() * orderEntity.getItemCount();
+        }
+        // 請求書件名を作成
+        String title = invoiceCreateForm.getInvoiceStartDate()
+                + Constant.TILDE
+                + invoiceCreateForm.getInvoiceEndDate()
+                + Constant.INVOICE_DEFAULT_TITLE;
+
+        return new InvoiceEntity(
+                null,
+                Integer.valueOf(invoiceCreateForm.getClientNo()),
+                Constant.INVOICE_STATUS_NEW,
+                InvoiceStringUtils.stringToDate(
+                        invoiceCreateForm.getInvoiceCreateDate(), Constant.FORMAT_DATE_SLASH),
+                title,
+                invoiceAmt,
+                Integer.valueOf(invoiceProperties.getTax()),
+                InvoiceStringUtils.stringToDate(
+                        invoiceCreateForm.getInvoiceStartDate(), Constant.FORMAT_DATE_SLASH),
+                InvoiceStringUtils.stringToDate(
+                        invoiceCreateForm.getInvoiceEndDate(), Constant.FORMAT_DATE_SLASH),
+                Constant.BLANK,
+                invoiceCreateForm.getCreateUser(),
+                new Timestamp(System.currentTimeMillis()),
+                invoiceCreateForm.getCreateUser(),
+                new Timestamp(System.currentTimeMillis()),
+                Constant.DEL_FLG_FALSE
+                );
     }
-    log.info("new invoiceInfo : " + newInvoiceEntity.toString());
-    // 作成した請求書番号を設定
-    InvoiceCreateInfoDto createInfoDto = new InvoiceCreateInfoDto(
-        String.valueOf(newInvoiceEntity.getInvoiceNo()));
 
-    // 請求書作成成功のメッセージを設定
-    List<MessageDto> messageList = new ArrayList<MessageDto>();
-    MessageDto messageDto = new MessageDto();
-    invoiceMessage.setMessage(messageDto, MessageConstant.MSGID_INVOICE_CREATE_SUCCESS, null);
-    messageList.add(messageDto);
 
-    return new InvoiceCreateDto(messageList, createInfoDto);
-  }
 
-  /**
-   * Creates the invoice info.
-   *
-   * @param orderList the order list
-   * @param invoiceCreateForm the invoice create form
-   * @return the invoice entity
-   */
-  public InvoiceEntity createInvoiceInfo(
-      List<OrderEntity> orderList, InvoiceCreateForm invoiceCreateForm) {
-
-    // 請求金額を作成
-    int invoiceAmt = 0;
-    for (OrderEntity orderEntity : orderList) {
-      invoiceAmt += orderEntity.getItemPrice() * orderEntity.getItemCount();
+    /**
+     * Select order all.
+     *
+     * @param clientNo the client no
+     * @param findStartTime the find start time
+     * @param findEndTime the find end time
+     * @return the list
+     */
+    public List<OrderEntity> selectOrderAll(
+            final int clientNo, final Timestamp findStartTime, final Timestamp findEndTime) {
+        return orderRepository.findByClientNoIsAndCreateDatetimeBetween(
+                clientNo, findStartTime, findEndTime);
     }
-    // 請求書件名を作成
-    String title = invoiceCreateForm.getInvoiceStartDate()
-        + Constant.TILDE
-        + invoiceCreateForm.getInvoiceEndDate()
-        + Constant.INVOICE_DEFAULT_TITLE;
 
-    return new InvoiceEntity(
-        null,
-        Integer.valueOf(invoiceCreateForm.getClientNo()),
-        Constant.INVOICE_STATUS_NEW,
-        InvoiceStringUtils.stringToDate(
-            invoiceCreateForm.getInvoiceCreateDate(), Constant.FORMAT_DATE_SLASH),
-        title,
-        invoiceAmt,
-        Integer.valueOf(invoiceProperties.getTax()),
-        InvoiceStringUtils.stringToDate(
-            invoiceCreateForm.getInvoiceStartDate(), Constant.FORMAT_DATE_SLASH),
-        InvoiceStringUtils.stringToDate(
-            invoiceCreateForm.getInvoiceEndDate(), Constant.FORMAT_DATE_SLASH),
-        Constant.BLANK,
-        invoiceCreateForm.getCreateUser(),
-        new Timestamp(System.currentTimeMillis()),
-        invoiceCreateForm.getCreateUser(),
-        new Timestamp(System.currentTimeMillis()),
-        Constant.DEL_FLG_FALSE
-        );
-  }
-
-
-
-  /**
-   * Select order all.
-   *
-   * @param clientNo the client no
-   * @param findStartTime the find start time
-   * @param findEndTime the find end time
-   * @return the list
-   */
-  public List<OrderEntity> selectOrderAll(
-      int clientNo, Timestamp findStartTime, Timestamp findEndTime) {
-    return orderRepository.findByClientNoIsAndCreateDatetimeBetween(
-        clientNo, findStartTime, findEndTime);
-  }
-
-  /**
-   * Creates the invoice.
-   *
-   * @param invoiceEntity the invoice entity
-   * @return the invoice entity
-   */
-  public InvoiceEntity createInvoice(InvoiceEntity invoiceEntity) {
-    return invoiceCreateRepository.save(invoiceEntity);
-  }
+    /**
+     * Creates the invoice.
+     *
+     * @param invoiceEntity the invoice entity
+     * @return the invoice entity
+     */
+    public InvoiceEntity createInvoice(final InvoiceEntity invoiceEntity) {
+        return invoiceCreateRepository.save(invoiceEntity);
+    }
 
 }

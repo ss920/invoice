@@ -10,9 +10,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
-// TODO: 自動生成された Javadoc
-/* (非 Javadoc)
- * @see java.lang.Object#toString()
+/**
+ * The Class InvoiceCreateForm.
  */
 @Data
 @NoArgsConstructor
@@ -20,37 +19,37 @@ import org.hibernate.validator.constraints.NotEmpty;
 @DateCheckValid(startDateProperty = "invoiceStartDate",endDateProperty = "invoiceEndDate")
 public class InvoiceCreateForm implements Serializable {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
-  /** The client no. */
-  @JsonProperty("client_no")
-  @NotEmpty
-  @Pattern(regexp = Constant.REGEX_NUMBER)
-  private String clientNo;
+    /** The client no. */
+    @JsonProperty("client_no")
+    @NotEmpty
+    @Pattern(regexp = Constant.REGEX_NUMBER)
+    private String clientNo;
 
-  /** The invoice start date. */
-  @JsonProperty("invoice_start_date")
-  @NotEmpty
-  @Pattern(regexp = Constant.REGEX_DATE)
-  private String invoiceStartDate;
+    /** The invoice start date. */
+    @JsonProperty("invoice_start_date")
+    @NotEmpty
+    @Pattern(regexp = Constant.REGEX_DATE)
+    private String invoiceStartDate;
 
-  /** The invoice end date. */
-  @JsonProperty("invoice_end_date")
-  @NotEmpty
-  @Pattern(regexp = Constant.REGEX_DATE)
-  private String invoiceEndDate;
+    /** The invoice end date. */
+    @JsonProperty("invoice_end_date")
+    @NotEmpty
+    @Pattern(regexp = Constant.REGEX_DATE)
+    private String invoiceEndDate;
 
-  /** The create user. */
-  @JsonProperty("create_user")
-  @NotEmpty
-  private String createUser;
+    /** The create user. */
+    @JsonProperty("create_user")
+    @NotEmpty
+    private String createUser;
 
-  /** The invoice create date. */
-  @JsonProperty("invoice_create_date")
-  @NotEmpty
-  @Pattern(regexp = Constant.REGEX_DATE)
-  private String invoiceCreateDate;
+    /** The invoice create date. */
+    @JsonProperty("invoice_create_date")
+    @NotEmpty
+    @Pattern(regexp = Constant.REGEX_DATE)
+    private String invoiceCreateDate;
 
 
 }

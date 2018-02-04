@@ -14,15 +14,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MessageDto implements Serializable {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
-  /** The message id. */
-  @JsonProperty("message_id")
-  private String messageId;
+    /** The message id. */
+    @JsonProperty("message_id")
+    private String messageId;
 
-  /** The message content. */
-  @JsonProperty("message_content")
-  private String messageContent;
+    /** The message content. */
+    @JsonProperty("message_content")
+    private String messageContent;
 
 }

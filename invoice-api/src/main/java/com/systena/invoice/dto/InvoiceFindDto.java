@@ -17,15 +17,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InvoiceFindDto implements Serializable {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
-  /** The message list. */
-  @JsonProperty("message")
-  List<MessageDto> messageList;
+    /** The message list. */
+    @JsonProperty("message")
+    private List<MessageDto> messageList;
 
-  /** The result. */
-  @JsonProperty("results")
-  InvoiceFindResultDto result;
+    /** The result. */
+    @JsonProperty("results")
+    private InvoiceFindResultDto result;
 
 }

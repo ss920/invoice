@@ -20,55 +20,55 @@ import javax.validation.ReportAsSingleViolation;
 @ReportAsSingleViolation
 public @interface DateCheckValid {
 
-  /**
-   * Message.
-   *
-   * @return the string
-   */
-  String message() default "終了日は開始日より過去にはできません。";
-
-  /**
-   * Groups.
-   *
-   * @return the class[]
-   */
-  Class<?>[] groups() default {};
-
-  /**
-   * Payload.
-   *
-   * @return the class<? extends payload>[]
-   */
-  Class<? extends Payload>[] payload() default {};
-
-  /**
-   * Start date property.
-   *
-   * @return the string
-   */
-  String startDateProperty();
-
-  /**
-   * End date property.
-   *
-   * @return the string
-   */
-  String endDateProperty();
-
-  /**
-   * The Interface List.
-   */
-  @Target({ElementType.TYPE,ElementType.ANNOTATION_TYPE})
-  @Retention(RetentionPolicy.RUNTIME)
-  @Documented
-  public @interface List {
+    /**
+     * Message.
+     *
+     * @return the string
+     */
+    String message() default "終了日は開始日より過去にはできません。";
 
     /**
-     * Value.
+     * Groups.
      *
-     * @return the date check valid[]
+     * @return the class[]
      */
-    DateCheckValid[] value();
-  }
+    Class<?>[] groups() default {};
+
+    /**
+     * Payload.
+     *
+     * @return the class<? extends payload>[]
+     */
+    Class<? extends Payload>[] payload() default {};
+
+    /**
+     * Start date property.
+     *
+     * @return the string
+     */
+    String startDateProperty();
+
+    /**
+     * End date property.
+     *
+     * @return the string
+     */
+    String endDateProperty();
+
+    /**
+     * The Interface List.
+     */
+    @Target({ElementType.TYPE,ElementType.ANNOTATION_TYPE})
+    @Retention(RetentionPolicy.RUNTIME)
+    @Documented
+    public @interface List {
+
+        /**
+         * Value.
+         *
+         * @return the date check valid[]
+         */
+        DateCheckValid[] value();
+    }
 
 }

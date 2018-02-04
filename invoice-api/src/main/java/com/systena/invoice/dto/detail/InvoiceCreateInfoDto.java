@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InvoiceCreateInfoDto implements Serializable {
 
-  /** The Constant serialVersionUID. */
-  private static final long serialVersionUID = 1L;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = 1L;
 
-  /** The invoice no. */
-  @JsonProperty("invoice_no")
-  private String invoiceNo;
+    /** The invoice no. */
+    @JsonProperty("invoice_no")
+    private String invoiceNo;
 
 }

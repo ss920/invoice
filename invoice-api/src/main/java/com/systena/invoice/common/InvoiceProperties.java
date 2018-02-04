@@ -18,6 +18,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 public class InvoiceProperties {
 
-  /** The tax. */
-  private String tax;
+    /** The tax. */
+    private String tax;
 }

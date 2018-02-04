@@ -19,39 +19,39 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class Validate {
 
-  /** The invoice message. */
-  @Autowired
-  private InvoiceMessage invoiceMessage;
+    /** The invoice message. */
+    @Autowired
+    private InvoiceMessage invoiceMessage;
 
-  /**
-   * Valid format number.
-   *
-   * @param number the number
-   * @param field the field
-   * @throws InvoiceException the invoice exception
-   */
-  public void validFormatNumber(String number, String field) throws InvoiceException {
+    /**
+     * Valid format number.
+     *
+     * @param number the number
+     * @param field the field
+     * @throws InvoiceException the invoice exception
+     */
+    public void validFormatNumber(final String number, final String field) throws InvoiceException {
 
-    boolean result = false;
-    try {
-      if (StringUtils.isNotEmpty(number)) {
-        // 正規表現に一致したらtrue
-        Pattern pattern = Pattern.compile(Constant.REGEX_NUMBER);
-        if (pattern.matcher(number).matches()) {
-          result = true;
+        boolean result = false;
+        try {
+            if (StringUtils.isNotEmpty(number)) {
+                // 正規表現に一致したらtrue
+                Pattern pattern = Pattern.compile(Constant.REGEX_NUMBER);
+                if (pattern.matcher(number).matches()) {
+                    result = true;
+                }
+            }
+        } catch (Exception e) {
+            log.error("[ERROR]:" + e);
         }
-      }
-    } catch (Exception e) {
-      log.error("[ERROR]:" + e);
-    }
 
-    if (!result) {
-      throw new InvoiceException(
-          invoiceMessage.findValidMsgId(MessageConstant.KEY_ERROR_FORMAT),
-          invoiceMessage.findValidMsgParam(MessageConstant.KEY_ERROR_FORMAT, field),
-          HttpStatus.BAD_REQUEST
-          );
+        if (!result) {
+            throw new InvoiceException(
+                    invoiceMessage.findValidMsgId(MessageConstant.KEY_ERROR_FORMAT),
+                    invoiceMessage.findValidMsgParam(MessageConstant.KEY_ERROR_FORMAT, field),
+                    HttpStatus.BAD_REQUEST
+                    );
+        }
     }
-  }
 
 }

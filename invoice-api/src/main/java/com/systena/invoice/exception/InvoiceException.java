@@ -16,13 +16,13 @@ import org.springframework.http.HttpStatus;
 public class InvoiceException extends Exception {
 
 
-  /** The error id. */
-  private String errorId;
+    /** The error id. */
+    private String errorId;
 
-  /** The error param. */
-  private String[] errorParam;
+    /** The error param. */
+    private String[] errorParam;
 
-  /** The http staus. */
-  private HttpStatus httpStaus;
+    /** The http staus. */
+    private HttpStatus httpStaus;
 
 }
