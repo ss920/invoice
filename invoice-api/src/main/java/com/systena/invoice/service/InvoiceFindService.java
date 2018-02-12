@@ -52,7 +52,7 @@ public class InvoiceFindService {
         // 請求書を取得できたか確認
         if (CollectionUtils.isEmpty(invoiceClientList)) {
             throw new InvoiceException(
-                    MessageConstant.MSGID_INVOICE_NOT_FOUNT,
+                    MessageConstant.MSGID_INVOICE_NOT_FOUND,
                     null,
                     HttpStatus.NOT_FOUND
                     );
@@ -93,7 +93,7 @@ public class InvoiceFindService {
         // 請求書を取得できたか確認
         if (Objects.isNull(invoiceClientEntity)) {
             throw new InvoiceException(
-                    MessageConstant.MSGID_INVOICE_NOT_FOUNT,
+                    MessageConstant.MSGID_INVOICE_NOT_FOUND,
                     null,
                     HttpStatus.NOT_FOUND
                     );

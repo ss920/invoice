@@ -70,7 +70,7 @@ public class InvoiceCreateService {
 
         if (CollectionUtils.isEmpty(orderList)) {
             throw new InvoiceException(
-                    MessageConstant.MSGID_INVOICE_NOT_FOUNT,
+                    MessageConstant.MSGID_INVOICE_NOT_FOUND,
                     null,
                     HttpStatus.NOT_FOUND);
         }

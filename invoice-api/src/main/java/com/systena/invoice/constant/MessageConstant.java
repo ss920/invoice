@@ -15,8 +15,8 @@ public class MessageConstant {
     /** The Constant MSGID_INVOICE_CREATE_SUCCESS. */
     public static final String MSGID_INVOICE_CREATE_SUCCESS = "IV_200_002";
 
-    /** The Constant MSGID_INVOICE_NOT_FOUNT. */
-    public static final String MSGID_INVOICE_NOT_FOUNT = "IV_400_001";
+    /** The Constant MSGID_INVOICE_NOT_FOUND. */
+    public static final String MSGID_INVOICE_NOT_FOUND = "IV_400_001";
 
     /** The Constant MSGID_VALID_NOT_NULL. */
     public static final String MSGID_VALID_NOT_NULL = "IV_400_101";
