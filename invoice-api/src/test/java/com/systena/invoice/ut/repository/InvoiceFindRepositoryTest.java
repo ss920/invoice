@@ -10,13 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+/**
+ * The Class InvoiceFindRepositoryTest.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class InvoiceFindRepositoryTest {
 
+    /** The invoice find repository. */
     @Autowired
     InvoiceFindRepository invoiceFindRepository;
 
+    /**
+     * Test.
+     */
     @Test
     public void test() {
         List<InvoiceClientEntity> invoiceList = invoiceFindRepository.findAll();
