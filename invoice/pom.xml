@@ -10,6 +10,11 @@
     <name>invoice</name>
     <description>invoice parent projext</description>
 
+    <modules>
+        <module>invoice-api</module>
+        <module>invoice-dao</module>
+    </modules>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
