@@ -20,6 +20,6 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
      * @param findEndTime the find end time
      * @return the list
      */
-    List<OrderEntity> findByClientNoIsAndCreateDatetimeBetween(
+    public List<OrderEntity> findByClientNoIsAndCreateDatetimeBetween(
             final int clientNo, final Timestamp findStartTime, final Timestamp findEndTime);
 }

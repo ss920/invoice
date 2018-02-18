@@ -10,4 +10,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InvoiceCreateRepository extends JpaRepository<InvoiceEntity, Integer> {
 
+    /**
+     * Save.
+     *
+     * @param invoiceEntity the invoice entity
+     * @return the invoice entity
+     */
+    @SuppressWarnings("unchecked")
+    public InvoiceEntity save(InvoiceEntity invoiceEntity);
 }
