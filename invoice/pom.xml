@@ -175,6 +175,13 @@
                     <xmlOutput>true</xmlOutput>
                     <includeFilterFile>invoice-FindBugsFilter.xml</includeFilterFile>
                 </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>findbugs</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
             </plugin>
 
             <!-- checkstyle -->
