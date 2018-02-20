@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE FindBugsFilter>
+<!DOCTYPE configuration>
 <FindBugsFilter>
     <Match>
         <Bug category="MALICIOUS_CODE" />
