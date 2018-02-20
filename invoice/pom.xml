@@ -173,7 +173,7 @@
                 <configuration>
                     <effort>Max</effort>
                     <xmlOutput>true</xmlOutput>
-                    <includeFilterFile>invoice-FindBugsFilter.xml</includeFilterFile>
+                    <excludeFilterFile>invoice-FindBugsFilter.xml</excludeFilterFile>
                 </configuration>
             </plugin>
 
