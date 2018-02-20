@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
 <FindBugsFilter>
-    <Match>
+    <Match classregex=".*">
         <Bug category="MALICIOUS_CODE" />
      </Match>
 </FindBugsFilter>
