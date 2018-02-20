@@ -62,7 +62,7 @@ public class InvoiceCreateService {
 
         // リクエストで設定されている検索日時をもとに、注文履歴を取得
         List<OrderEntity> orderList = selectOrderAll(
-                Integer.valueOf(invoiceCreateForm.getClientNo()),
+                Integer.parseInt(invoiceCreateForm.getClientNo()),
                 InvoiceStringUtils.stringToTimestamp(
                         invoiceCreateForm.getInvoiceStartDate(), Constant.FORMAT_DATE_SLASH),
                 InvoiceStringUtils.stringToTimestamp(
@@ -123,13 +123,13 @@ public class InvoiceCreateService {
 
         return new InvoiceEntity(
                 null,
-                Integer.valueOf(invoiceCreateForm.getClientNo()),
+                Integer.parseInt(invoiceCreateForm.getClientNo()),
                 Constant.INVOICE_STATUS_NEW,
                 InvoiceStringUtils.stringToDate(
                         invoiceCreateForm.getInvoiceCreateDate(), Constant.FORMAT_DATE_SLASH),
                 title,
                 invoiceAmt,
-                Integer.valueOf(invoiceProperties.getTax()),
+                Integer.parseInt(invoiceProperties.getTax()),
                 InvoiceStringUtils.stringToDate(
                         invoiceCreateForm.getInvoiceStartDate(), Constant.FORMAT_DATE_SLASH),
                 InvoiceStringUtils.stringToDate(

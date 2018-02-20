@@ -89,7 +89,7 @@ public class InvoiceFindService {
     public InvoiceFindDto getInvoiceOneExecute(final String invoiceNo) throws InvoiceException {
 
         // 請求書情報の全取得
-        InvoiceClientEntity invoiceClientEntity = selectInvoiceOne(Integer.valueOf(invoiceNo));
+        InvoiceClientEntity invoiceClientEntity = selectInvoiceOne(Integer.parseInt(invoiceNo));
         // 請求書を取得できたか確認
         if (Objects.isNull(invoiceClientEntity)) {
             throw new InvoiceException(
