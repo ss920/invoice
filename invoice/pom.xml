@@ -114,10 +114,12 @@
             </plugin>
 
             <!-- checkstyle -->
+<!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
+ -->
 
         </plugins>
         <pluginManagement>
@@ -141,14 +143,17 @@
                 </plugin>
 
                 <!-- checkstyle -->
+<!--
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>3.0.0</version>
                     <configuration>
                         <configLocation>invoice-checkstyle.xml</configLocation>
+                        <encoding>UTF-8</encoding>
                     </configuration>
                 </plugin>
+ -->
 
                 <!-- findbugs -->
                 <plugin>
@@ -192,6 +197,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.0.0</version>
+                <configuration>
+                    <configLocation>invoice-checkstyle.xml</configLocation>
+                    <encoding>UTF-8</encoding>
+                </configuration>
                 <reportSets>
                     <reportSet>
                         <reports>
