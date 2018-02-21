@@ -42,6 +42,22 @@ public class InvoiceMessage {
     }
 
     /**
+     * Gets the message.
+     *
+     * @param messageId the message id
+     * @param messageParam the message param
+     * @return the message
+     */
+    public MessageDto getMessage(
+            final String messageId, final String[] messageParam) {
+
+        MessageDto messageDto = new MessageDto();
+        setMessage(messageDto, messageId, messageParam);
+
+        return messageDto;
+    }
+
+    /**
      * Find valid msg id.
      *
      * @param errorCode the error code

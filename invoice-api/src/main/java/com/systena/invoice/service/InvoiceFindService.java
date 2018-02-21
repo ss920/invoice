@@ -15,6 +15,7 @@ import com.systena.invoice.entity.InvoiceClientEntity;
 import com.systena.invoice.exception.InvoiceException;
 import com.systena.invoice.repository.InvoiceFindRepository;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Resource;
@@ -71,10 +72,12 @@ public class InvoiceFindService {
         }
 
         // 請求書取得のメッセージを設定
-        List<MessageDto> messageList = new ArrayList<MessageDto>();
-        MessageDto messageDto = new MessageDto();
-        invoiceMessage.setMessage(messageDto, MessageConstant.MSGID_INVOICE_GET_SUCCESS, null);
-        messageList.add(messageDto);
+        List<MessageDto> messageList = new ArrayList<MessageDto>(
+                Arrays.asList(
+                    invoiceMessage.getMessage(
+                            MessageConstant.MSGID_INVOICE_GET_SUCCESS, null)
+                    )
+                );
 
         return new InvoiceFindAllDto(messageList, resultList);
     }
@@ -107,10 +110,12 @@ public class InvoiceFindService {
                 );
 
         // 請求書取得のメッセージを設定
-        List<MessageDto> messageList = new ArrayList<MessageDto>();
-        MessageDto messageDto = new MessageDto();
-        invoiceMessage.setMessage(messageDto, MessageConstant.MSGID_INVOICE_GET_SUCCESS, null);
-        messageList.add(messageDto);
+        List<MessageDto> messageList = new ArrayList<MessageDto>(
+                Arrays.asList(
+                    invoiceMessage.getMessage(
+                            MessageConstant.MSGID_INVOICE_GET_SUCCESS, null)
+                    )
+                );
 
         return new InvoiceFindDto(messageList, resultDto);
     }
