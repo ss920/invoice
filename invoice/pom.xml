@@ -147,14 +147,6 @@
                     <version>3.0.0</version>
                     <configuration>
                         <configLocation>invoice-checkstyle.xml</configLocation>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>checkstyle</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </configuration>
                 </plugin>
 
