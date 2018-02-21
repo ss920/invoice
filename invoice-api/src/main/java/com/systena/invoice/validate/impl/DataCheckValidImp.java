@@ -58,7 +58,7 @@ public class DataCheckValidImp implements ConstraintValidator<DateCheckValid, Ob
                 // 終了日時
                 LocalDate endDateObj = LocalDate.parse(end);
 
-                if (endDateObj.compareTo(startDateObj) >= 0) {
+                if (endDateObj.isAfter(startDateObj)) {
                     ret = true;
                 } else {
                     ret = false;
