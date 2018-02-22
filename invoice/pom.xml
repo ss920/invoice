@@ -171,7 +171,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <configLocation>invoice-checkstyle.xml</configLocation>
+                    <configLocation>google_checks.xml</configLocation>
                     <encoding>UTF-8</encoding>
                     <executions>
                         <execution>
