@@ -39,7 +39,7 @@ public class ErrorHandler {
         // エラー内容のログ出力
         log.error("[ERROR]: " + e);
         // エラーメッセージを設定
-        List<MessageDto> messageList = new ArrayList<MessageDto>();
+        List<MessageDto> messageList = null;
         HttpStatus returnStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 
         // エラーID・HTTPステータスが設定されていれば、エラーIDに対応するメッセージを取得する
