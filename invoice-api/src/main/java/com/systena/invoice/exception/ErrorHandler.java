@@ -40,18 +40,18 @@ public class ErrorHandler {
         log.error("[ERROR]: " + e);
         // エラーメッセージを設定
         List<MessageDto> messageList = new ArrayList<MessageDto>();
-        MessageDto messageDto = new MessageDto();
         HttpStatus returnStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+
         // エラーID・HTTPステータスが設定されていれば、エラーIDに対応するメッセージを取得する
         if (StringUtils.isNotEmpty(e.getErrorId()) && e.getHttpStaus() != null) {
             // メッセージIDからメッセージ内容を取得
-            invoiceMessage.setMessage(messageDto, e.getErrorId(), e.getErrorParam());
-            messageList.add(messageDto);
+            messageList = invoiceMessage.getMessage(
+                    e.getErrorId(), e.getErrorParam());
             returnStatus = e.getHttpStaus();
         } else {
             // 500エラーのメッセージを取得
-            invoiceMessage.setMessage(messageDto, MessageConstant.MSGID_SERVER_ERROR, null);
-            messageList.add(messageDto);
+            messageList = invoiceMessage.getMessage(
+                    MessageConstant.MSGID_SERVER_ERROR);
         }
         // エラーメッセージを返却（HTTPステータスは可変)
         return ResponseEntity
@@ -98,11 +98,11 @@ public class ErrorHandler {
                 messageList.add(messageDto);
             }
             returnStatus = HttpStatus.BAD_REQUEST;
+
         } else {
             // MethodArgumentNotValidExceptionの中身がない場合、500エラーを設定する
-            messageDto = new MessageDto();
-            invoiceMessage.setMessage(messageDto, MessageConstant.MSGID_SERVER_ERROR, null);
-            messageList.add(messageDto);
+            messageList = invoiceMessage.getMessage(
+                    MessageConstant.MSGID_SERVER_ERROR);
         }
 
         return ResponseEntity
@@ -122,11 +122,8 @@ public class ErrorHandler {
         // エラー内容のログ出力
         log.error("[ERROR]: " + e);
         // エラーメッセージを設定
-        List<MessageDto> messageList = new ArrayList<MessageDto>();
-        MessageDto messageDto = new MessageDto();
-        // メッセージIDからメッセージ内容を取得
-        invoiceMessage.setMessage(messageDto, MessageConstant.MSGID_SERVER_ERROR, null);
-        messageList.add(messageDto);
+        List<MessageDto> messageList = invoiceMessage.getMessage(
+                MessageConstant.MSGID_SERVER_ERROR);
         // エラーメッセージを返却（HTTPステータスは500)
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)

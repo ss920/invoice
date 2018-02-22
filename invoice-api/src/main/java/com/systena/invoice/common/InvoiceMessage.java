@@ -2,6 +2,8 @@ package com.systena.invoice.common;
 
 import com.systena.invoice.constant.MessageConstant;
 import com.systena.invoice.dto.detail.MessageDto;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,17 +47,36 @@ public class InvoiceMessage {
      * Gets the message.
      *
      * @param messageId the message id
+     * @return the message
+     */
+    public List<MessageDto> getMessage(final String messageId) {
+
+        List<MessageDto> messageList = new ArrayList<MessageDto>();
+        MessageDto messageDto = new MessageDto();
+        setMessage(messageDto, messageId, null);
+        messageList.add(messageDto);
+
+        return messageList;
+    }
+
+    /**
+     * Gets the message.
+     *
+     * @param messageId the message id
      * @param messageParam the message param
      * @return the message
      */
-    public MessageDto getMessage(
+    public List<MessageDto> getMessage(
             final String messageId, final String[] messageParam) {
 
+        List<MessageDto> messageList = new ArrayList<MessageDto>();
         MessageDto messageDto = new MessageDto();
         setMessage(messageDto, messageId, messageParam);
+        messageList.add(messageDto);
 
-        return messageDto;
+        return messageList;
     }
+
 
     /**
      * Find valid msg id.

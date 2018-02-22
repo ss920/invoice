@@ -15,8 +15,6 @@ import com.systena.invoice.form.InvoiceCreateForm;
 import com.systena.invoice.repository.InvoiceCreateRepository;
 import com.systena.invoice.repository.OrderRepository;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import javax.annotation.Resource;
@@ -93,12 +91,8 @@ public class InvoiceCreateService {
                 String.valueOf(newInvoiceEntity.getInvoiceNo()));
 
         // 請求書作成成功のメッセージを設定
-        List<MessageDto> messageList = new ArrayList<MessageDto>(
-                Arrays.asList(
-                    invoiceMessage.getMessage(
-                            MessageConstant.MSGID_INVOICE_CREATE_SUCCESS, null)
-                    )
-                );
+        List<MessageDto> messageList = invoiceMessage.getMessage(
+                MessageConstant.MSGID_INVOICE_CREATE_SUCCESS);
 
         return new InvoiceCreateDto(messageList, createInfoDto);
     }
