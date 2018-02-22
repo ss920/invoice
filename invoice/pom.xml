@@ -113,14 +113,6 @@
                 </configuration>
             </plugin>
 
-            <!-- checkstyle -->
-<!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
- -->
-
         </plugins>
         <pluginManagement>
             <plugins>
@@ -141,27 +133,6 @@
                         </executions>
                     </configuration>
                 </plugin>
-
-                <!-- checkstyle -->
-<!--
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <configuration>
-                        <configLocation>invoice-checkstyle.xml</configLocation>
-                        <encoding>UTF-8</encoding>
-                    </configuration>
-                </plugin>
- -->
-
-                <!-- findbugs -->
-<!--
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                </plugin>
- -->
 
             </plugins>
         </pluginManagement>
@@ -188,21 +159,10 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.6-SNAPSHOT</version>
                 <configuration>
-<!--
                     <effort>Max</effort>
                     <xmlOutput>true</xmlOutput>
- -->
                     <excludeFilterFile>invoice-FindBugsFilter.xml</excludeFilterFile>
                 </configuration>
-<!--
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>findbugs</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
- -->
             </plugin>
 
             <!-- checkstyle -->
@@ -214,7 +174,6 @@
                     <configLocation>${basedir}/invoice-checkstyle.xml</configLocation>
                     <encoding>UTF-8</encoding>
                 </configuration>
-<!--
                 <reportSets>
                     <reportSet>
                         <reports>
@@ -222,7 +181,6 @@
                         </reports>
                     </reportSet>
                 </reportSets>
- -->
             </plugin>
 
         </plugins>
