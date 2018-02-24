@@ -15,6 +15,9 @@
     <name>invoice-dao</name>
     <description>Invoice-dao project for Spring Boot</description>
 
+    <properties>
+        <findbugs.excludeFilterFile>invoice-FindBugsFilter.xml</findbugs.excludeFilterFile>
+    </properties>
 
     <build>
         <plugins>
@@ -82,7 +85,6 @@
                 <configuration>
                     <effort>Max</effort>
                     <xmlOutput>true</xmlOutput>
-                    <excludeFilterFile>invoice-FindBugsFilter.xml</excludeFilterFile>
                 </configuration>
             </plugin>
             <!-- checkstyle -->
