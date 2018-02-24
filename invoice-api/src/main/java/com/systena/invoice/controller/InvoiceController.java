@@ -49,10 +49,6 @@ public class InvoiceController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<InvoiceFindAllDto> getInvoiceAll() throws InvoiceException {
-
-        // checkstyleの設定が効くかテスト
-        String test="hoge";
-
         // 請求書取得処理の開始
         InvoiceFindAllDto dto = invoiceFindService.getInvoiceExecute();
         return ResponseEntity.ok(dto);
