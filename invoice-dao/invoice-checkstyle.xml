@@ -148,7 +148,7 @@ Checkstyle configuration that checks the Google coding conventions from Google J
     <module name="MethodParamPad"/>
     <module name="NoWhitespaceBefore">
       <property name="allowLineBreaks" value="true"/>
-      <property name="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT, ELLIPSIS"/>
+      <property name="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT"/>
     </module>
     <module name="ParenPad"/>
     <module name="OperatorWrap">
