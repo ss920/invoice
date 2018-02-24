@@ -8,7 +8,7 @@
     <version>1.0</version>
     <packaging>pom</packaging>
     <name>invoice</name>
-    <description>invoice parent projext</description>
+    <description>invoice parent project</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -95,9 +95,5 @@
         </dependency>
 
     </dependencies>
-
-
-
-
 
 </project>

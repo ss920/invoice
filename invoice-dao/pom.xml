@@ -74,12 +74,14 @@
                 <version>2.7</version>
             </plugin>
             <!-- findbugs -->
+            <!-- ref https://gleclaire.github.io/findbugs-maven-plugin/findbugs-mojo.html -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.6-SNAPSHOT</version>
             </plugin>
             <!-- checkstyle -->
+            <!-- ref https://maven.apache.org/plugins/maven-checkstyle-plugin/checkstyle-mojo.html -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
