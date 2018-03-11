@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration>
+
+    <!-- 出力フォーマット -->
+    <property name="out_format" value="[%-5level] %date %-15logger{15} - %m%n" />
+    <!-- 出力先ディレクトリ -->
+    <property name="out_directory" value="C:/develop/invoice/invoice-log/" />
+    <!-- 出力ログレベル -->
+    <property name="out_log_level" value="info" />
+
+    <!-- ファイル出力の設定 -->
+    <appender name="FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 出力ファイル名 -->
+        <file>${out_directory}invoice_api.log</file>
+
+        <!-- 日付単位でローテート -->
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- ローテートした際の出力ファイル名 -->
+            <fileNamePattern>${out_directory}invoice-api-%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+
+        <encoder>
+            <!-- 出力時の文字コード -->
+            <charset>UTF-8</charset>
+            <!-- 出力時のフォーマット（内容はpropertyタグで指定済み） -->
+            <pattern>${out_format}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- コンソール出力の設定 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 出力時のフォーマット（内容はpropertyタグで指定済み） -->
+            <pattern>${out_format}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 出力するログレベルを一括で指定 -->
+    <root level="${out_log_level}">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>
